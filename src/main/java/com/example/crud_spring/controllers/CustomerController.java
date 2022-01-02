@@ -101,6 +101,7 @@ public class CustomerController {
         if (customer.getBooksTaken().size() == 0) {
             customer.setHasToReturn(false);
         }
+        book.setInStock(true);
         repository.save(book);
         response.sendRedirect("/");
     }
