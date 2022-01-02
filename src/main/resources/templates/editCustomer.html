@@ -49,7 +49,6 @@
         </div>
     </div>
 </header>
-
 <div class="container-fluid">
     <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -68,7 +67,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/customers">
+                        <a class="nav-link" href="/customers">
                             <span data-feather="shopping-cart"></span>
                             Customers
                         </a>
@@ -124,35 +123,30 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-            <h2>Customer Table</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Books taken</th>
-                        <th scope="col">Has to return</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="customer : ${customers}">
-                        <td th:text="${customer.id}"></td>
-                        <td th:text="${customer.name}"></td>
-                        <td th:text="${customer.surname}"></td>
-                        <td th:text="${customer.phoneNumber}"></td>
-                        <td th:text="${customer.email}"></td>
-                        <td> <a class="btn-sm btn-primary" th:href="${'/booksTakenBy?customerId=' + customer.id}">Books Taken</a> </td>
-                        <td th:text="${customer.hasToReturn}"></td>
-                        <td> <a class="btn-sm btn-primary" th:href="${'/editCustomer' + customer.id}">Edit</a> </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <h2>Edit Customer</h2>
+            <form action="/editCustomerAndRedirect">
+                <label>ID</label>
+                <br>
+                <input type="text" class="form-control" name="customerId" th:value="${customer.id}" readonly>
+                <br>
+                <label>Name</label>
+                <br>
+                <input type="text" class="form-control" name="name" th:value="${customer.name}">
+                <br>
+                <label>Surname</label>
+                <br>
+                <input type="text" class="form-control" name="surname" th:value="${customer.surname}">
+                <br>
+                <label>Phone Number</label>
+                <br>
+                <input type="text" class="form-control" name="phoneNumber" th:value="${customer.phoneNumber}">
+                <br>
+                <label>Email</label>
+                <br>
+                <input type="text" class="form-control" name="email" th:value="${customer.email}">
+                <br>
+                <input type="submit">
+            </form>
         </main>
     </div>
 </div>
@@ -160,6 +154,5 @@
 
 <script src="js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
 </body>
 </html>

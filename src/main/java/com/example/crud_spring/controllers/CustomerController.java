@@ -1,5 +1,6 @@
 package com.example.crud_spring.controllers;
 
+import com.example.crud_spring.entities.Author;
 import com.example.crud_spring.entities.Book;
 import com.example.crud_spring.entities.Customer;
 import com.example.crud_spring.repositories.BookRepository;
@@ -95,15 +96,40 @@ public class CustomerController {
         Long customerId = Long.parseLong(request.getParameter("customerId"));
         Book book = repository.findById(bookId).orElse(null);
         Customer customer = customerRepository.findById(customerId).orElse(null);
-        book.getTakenBy().remove(customer);
-        book.setCountInPlace(book.getCountInPlace() + 1);
-        customer.getBooksTaken().remove(book);
-        if (customer.getBooksTaken().size() == 0) {
-            customer.setHasToReturn(false);
+        if (!customer.getBooksTaken().remove(book)) {
+            response.sendRedirect("/");
+            // Ete ed hachaxordy girqy chi vercrel, alert. Vonc?
+        } else {
+            book.getTakenBy().remove(customer);
+            book.setCountInPlace(book.getCountInPlace() + 1);
+            if (customer.getBooksTaken().size() == 0) {
+                customer.setHasToReturn(false);
+            }
+            book.setInStock(true);
+            repository.save(book);
+            response.sendRedirect("/");
         }
-        book.setInStock(true);
-        repository.save(book);
-        response.sendRedirect("/");
     }
 
+
+
+    @GetMapping("/editCustomer{customerId}")
+    public String editAuthor(Model model, @PathVariable("customerId") Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        model.addAttribute("customer", customer);
+        return "editCustomer";
+    }
+
+
+
+    @GetMapping("/editCustomerAndRedirect")
+    public void editAuthorAndRespond(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Customer customer = customerRepository.findById(Long.parseLong(request.getParameter("customerId"))).orElse(null);
+        customer.setName(request.getParameter("name"));
+        customer.setSurname(request.getParameter("surname"));
+        customer.setPhoneNumber(request.getParameter(("phoneNumber")));
+        customer.setEmail(request.getParameter("email"));
+        customerRepository.save(customer);
+        response.sendRedirect("/customers");
+    }
 }

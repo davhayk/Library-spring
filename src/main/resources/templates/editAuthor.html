@@ -124,24 +124,25 @@
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
             <h2>Edit Author</h2>
-            <form action="/editAuthorAndRespond">
+            <form action="/editAuthorAndRedirect">
                 <label>ID</label>
                 <br>
-                <input type="text" name="authorId" th:value="${author.id}" readonly>
+                <input type="text" class="form-control" name="authorId" th:value="${author.id}" readonly>
                 <br>
                 <label>Name</label>
                 <br>
-                <input type="text" name="name" th:value="${author.name}">
+                <input type="text" class="form-control" name="name" th:value="${author.name}">
                 <br>
                 <label>Surname</label>
                 <br>
-                <input type="text" name="surname" th:value="${author.surname}">
+                <input type="text" class="form-control" name="surname" th:value="${author.surname}">
                 <br>
                 <label>Phone Number</label>
                 <br>
-                <input type="text" name="phoneNumber" th:value="${author.phoneNumber}">
+                <input type="text" class="form-control" name="phoneNumber" th:value="${author.phoneNumber}">
                 <br>
                 <label>Activity</label>
+                <br>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="active" th:checked="${author.active}">
                     <label class="form-check-label">
