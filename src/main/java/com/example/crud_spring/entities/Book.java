@@ -44,19 +44,4 @@ public class Book {
         s.deleteCharAt(s.length() - 1);
         return s.toString();
     }
-    public String written() {
-        if (inWrittenForm)
-            return "on";
-        return "off";
-    }
-    public String pdf() {
-        if (inPDF)
-            return "on";
-        return "off";
-    }
-    public String readOnlyOn() {
-        if (readOnly)
-            return "on";
-        return "off";
-    }
 }
