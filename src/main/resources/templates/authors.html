@@ -147,7 +147,7 @@
                         <td th:text="${author.phoneNumber}"></td>
                         <td th:text="${author.active} ? 'Yes' : 'No'"></td>
                         <td> <a class="btn-sm btn-primary" th:href="${'/booksWritten?authorId=' + author.id}">Books</a></td>
-                        <td> <a class="btn-sm btn-primary" th:href="${'/editAuthor?authorId=' + author.id}">Edit</a> </td>
+                        <td> <a class="btn-sm btn-primary" th:href="${'/editAuthor' + author.id}">Edit</a> </td>
                     </tr>
                     </tbody>
                 </table>

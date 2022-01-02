@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller
@@ -31,5 +34,21 @@ public class DonatorController {
         Donator donator = donatorRepository.findById(donatorId).orElse(null);
         model.addAttribute("donator", donator);
         return "booksDonated";
+    }
+
+    @GetMapping("/editDonator{donatorId}")
+    public String editDonator(@PathVariable("donatorId") long donatorId, Model model) {
+        Donator donator = donatorRepository.findById(donatorId).orElse(null);
+        model.addAttribute("donator", donator);
+        return "editDonator";
+    }
+    @GetMapping("/editDonatorAndRedirect")
+    public void editDonatorAndRedirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Donator donator = donatorRepository.findById(Long.parseLong(request.getParameter("donatorId"))).orElse(null);
+        donator.setName(request.getParameter("name"));
+        donator.setSurname(request.getParameter("surname"));
+        donator.setPhoneNumber(request.getParameter("phoneNumber"));
+        donator.setEmail(request.getParameter("email"));
+        response.sendRedirect("/donators");
     }
 }

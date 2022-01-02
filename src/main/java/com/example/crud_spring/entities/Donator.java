@@ -17,5 +17,5 @@ public class Donator {
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Book> booksDonated = new ArrayList<>();
     private String phoneNumber;
-
+    private String email;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,23 +37,22 @@ public class AuthorController {
 
 
 
-    @GetMapping("/editAuthor")
-    public String edit(Model model, HttpServletRequest request) {
-        Long authorId = Long.parseLong(request.getParameter("authorId"));
-        Optional<Author> author = repository.findById(authorId);
+    @GetMapping("/editAuthor{authorId}")
+    public String editAuthor(Model model, @PathVariable("authorId") Long authorId) {
+        Author author = repository.findById(authorId).orElse(null);
         model.addAttribute("author", author);
         return "editAuthor";
     }
 
 
 
-    @GetMapping("/editAndRespond")
-    public void editAndRespond(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping("/editAuthorAndRespond")
+    public void editAuthorAndRespond(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Author author = repository.findById(Long.parseLong(request.getParameter("authorId"))).orElse(null);
         author.setName(request.getParameter("name"));
         author.setSurname(request.getParameter("surname"));
-        author.setActive(request.getParameter("active") != null);
         author.setPhoneNumber(request.getParameter(("phoneNumber")));
+        author.setActive(request.getParameter("active") != null);
         repository.save(author);
         response.sendRedirect("/authors");
     }
