@@ -146,6 +146,7 @@ public class BookController {
             if (author.getName() == null) {
                 author.setName(request.getParameter("authorName"));
                 author.setSurname(request.getParameter("authorSurname"));
+                author.setPhoneNumber(request.getParameter("authorPhoneNumber"));
             }
             book.setAuthor(author);
             if (!book.getDonators().contains(donator)) {
